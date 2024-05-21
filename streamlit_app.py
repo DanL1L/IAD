@@ -242,9 +242,10 @@ if uploaded_file is not None:
     # Adjust layout and display plot in Streamlit
     plt.tight_layout()
     st.pyplot(fig)
+
+    
     # Diagram of mushroom odors
     st.write('Diagram of mushroom odors')
-
     # Define columns for odor: almond=a, anise=l, creosote=c, fishy=y, foul=f, musty=m, none=n, pungent=p, spicy=s
     columns = ['5_a', '5_l', '5_c', '5_y', '5_f', '5_m', '5_n', '5_p', '5_s']
     odor_names = {
