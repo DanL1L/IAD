@@ -176,6 +176,7 @@ if uploaded_file is not None:
     # Adjust layout and display plot in Streamlit
     plt.tight_layout()
     st.pyplot(fig)
+    
     #4 Diagram cap colors
     # Diagram of mushroom cap colors
     st.write('Diagram of mushroom cap colors')
@@ -207,6 +208,35 @@ if uploaded_file is not None:
 
     # Add frequency labels on top of bars
     for i, (color, count) in enumerate(color_counts.items()):
+        ax.text(i, count, str(count), ha='center', va='bottom')
+
+    # Adjust layout and display plot in Streamlit
+    plt.tight_layout()
+    st.pyplot(fig)
+
+    #5 Diagram bruises
+    # Diagram of bruises
+    st.write('Diagram of mushroom bruises')
+
+    # Define columns for bruises: bruises=t, no_bruises=f
+    columns = ['4_t', '4_f']
+    bruise_names = {
+        '4_t': 'Bruises',
+        '4_f': 'No Bruises'
+    }
+
+    # Calculate value counts for bruises
+    bruise_counts = {bruise_names[col]: encoded_data[col].sum() for col in columns}
+
+    # Create combined bar plot for bruises
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.bar(bruise_counts.keys(), bruise_counts.values(), color=['darkblue', 'lightblue'], alpha=0.7)
+    ax.set_title('Distribution of Mushroom Bruises')
+    ax.set_xlabel('Bruises')
+    ax.set_ylabel('Frequency')
+
+    # Add frequency labels on top of bars
+    for i, (bruise, count) in enumerate(bruise_counts.items()):
         ax.text(i, count, str(count), ha='center', va='bottom')
 
     # Adjust layout and display plot in Streamlit
