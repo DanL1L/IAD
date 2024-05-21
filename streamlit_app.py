@@ -246,35 +246,61 @@ if uploaded_file is not None:
     
     # Diagram of mushroom odors
     st.write('Diagram of mushroom odors')
-    # Define columns for odor: almond=a, anise=l, creosote=c, fishy=y, foul=f, musty=m, none=n, pungent=p, spicy=s
-    columns = ['5_a', '5_l', '5_c', '5_y', '5_f', '5_m', '5_n', '5_p', '5_s']
-    odor_names = {
-        '5_a': 'Almond',
-        '5_l': 'Anise',
-        '5_c': 'Creosote',
-        '5_y': 'Fishy',
-        '5_f': 'Foul',
-        '5_m': 'Musty',
-        '5_n': 'None',
-        '5_p': 'Pungent',
-        '5_s': 'Spicy'
-    }
+    # List of column names
+columns = ['5_a', '5_l', '5_c', '5_y', '5_f', '5_m', '5_n', '5_p', '5_s']
 
-    # Calculate value counts for odors
-    odor_counts = {odor_names[col]: encoded_data[col].sum() for col in columns}
+# Calculate value counts for odor types
+odor_counts = {col: encoded_data[col].sum() for col in columns}
 
-    # Create combined bar plot for odors
-    fig, ax = plt.subplots(figsize=(15, 5))
-    ax.bar(odor_counts.keys(), odor_counts.values(), color=['almond', 'anise', 'creosote', 'fishy', 'foul', 'musty', 'none', 'pungent', 'spicy'], alpha=0.7)
-    ax.set_title('Distribution of Mushroom Odors')
-    ax.set_xlabel('Odor')
+# Define colors for each odor type
+odor_colors = {
+    '5_a': 'red',   # almond
+    '5_l': 'green',  # anise
+    '5_c': 'blue',   # creosote
+    '5_y': 'orange',  # fishy
+    '5_f': 'purple',  # foul
+    '5_m': 'yellow',  # musty
+    '5_n': 'pink',   # none
+    '5_p': 'brown',   # pungent
+    '5_s': 'gray'    # spicy
+}
+
+# Create a bar plot for odor types
+fig, ax = plt.subplots(figsize=(15, 5))
+ax.bar(odor_counts.keys(), odor_counts.values(), color=[odor_colors[col] for col in columns], alpha=0.7)
+ax.set_title('Distribution of Mushroom Odor')
+ax.set_xlabel('Odor Type')
+ax.set_ylabel('Frequency')
+
+# Add frequency labels on top of bars
+for odor, count in odor_counts.items():
+    ax.text(odor, count, str(count), ha='center', va='bottom')
+
+# Display plot in Streamlit
+st.write('Diagram of Mushroom Odor')
+st.pyplot(fig)
+
+    
+    # Diagram gill-attachment
+    st.write('Diagram of mushroom odors')
+    # List of column names
+    columns = ['6_a', '6_f']
+
+    # Calculate value counts for gill attachment types
+    attachment_counts = {col: encoded_data[col].sum() for col in columns}
+    
+    # Create a bar plot for gill attachment types
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.bar(attachment_counts.keys(), attachment_counts.values(), color=['blue', 'orange'], alpha=0.7)
+    ax.set_title('Distribution of Mushroom Gill Attachment')
+    ax.set_xlabel('Gill Attachment')
     ax.set_ylabel('Frequency')
-
+    
     # Add frequency labels on top of bars
-    for i, (odor, count) in enumerate(odor_counts.items()):
-        ax.text(i, count, str(count), ha='center', va='bottom')
-
-    # Adjust layout and display plot in Streamlit
-    plt.tight_layout()
+    for attachment, count in attachment_counts.items():
+        ax.text(attachment, count, str(count), ha='center', va='bottom')
+    
+    # Display plot in Streamlit
+    st.write('Diagram of Mushroom Gill Attachment')
     st.pyplot(fig)
     
