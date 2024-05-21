@@ -14,7 +14,7 @@ st.title("Mushroom Classification")
 st.write("This app performs classification on the Mushroom dataset using different models.")
 
 # Upload file
-uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
+uploaded_file = st.file_uploader("Choose a CSV file", type="data")
 if uploaded_file is not None:
     data = pd.read_csv(uploaded_file, header=None)
     
