@@ -245,10 +245,13 @@ if uploaded_file is not None:
 
     
     # Diagram of mushroom odors
+    # Diagram of mushroom odors
+    st.write('Diagram of mushroom odors')
+    
     # Define legend text
     legend_text = "Odor Types:\n" \
-              "almond=a, anise=l, creosote=c, fishy=y, foul=f, musty=m, none=n, pungent=p, spicy=s"
-
+                  "almond=a, anise=l, creosote=c, fishy=y, foul=f, musty=m, none=n, pungent=p, spicy=s"
+    
     # List of column names
     columns = ['5_a', '5_l', '5_c', '5_y', '5_f', '5_m', '5_n', '5_p', '5_s']
     
@@ -285,7 +288,6 @@ if uploaded_file is not None:
     # Display plot in Streamlit
     st.write('Diagram of Mushroom Odor')
     st.pyplot(fig)
-
 
     # Diagram gill-attachment
 
