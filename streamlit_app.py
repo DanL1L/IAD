@@ -115,7 +115,7 @@ if uploaded_file is not None:
     st.pyplot(fig)
     
     #2 Diagram Shape
-    st.write('Diagram of mushroom cap shapes:')
+    st.write('Diagram of mushroom cap shapes')
 
     # Define columns for cap-shape: bell=b, conical=c, convex=x, flat=f, knobbed=k, sunken=s
     columns = ['1_b', '1_c', '1_f', '1_k', '1_s', '1_x']
