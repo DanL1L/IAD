@@ -103,3 +103,25 @@ if uploaded_file is not None:
         for index, value in enumerate(value_counts):
             axs[i].text(index, value, str(value), ha='center', va='bottom')
     st.pyplot(fig)
+    # Define columns for cap-shape: bell=b, conical=c, convex=x, flat=f, knobbed=k, sunken=s
+    columns = ['1_b', '1_c', '1_f', '1_k', '1_s', '1_x']
+
+    # Create subplots
+    fig, axs = plt.subplots(nrows=2, ncols=3, figsize=(15, 10))
+    axs = axs.flatten()
+
+    # Plot each column
+    for i, column in enumerate(columns):
+        value_counts = encoded_data[column].value_counts()
+        value_counts.plot(kind='bar', ax=axs[i], color='skyblue', alpha=0.7)
+        axs[i].set_title(f'Distribution of {column}')
+        axs[i].set_xlabel(column)
+        axs[i].set_ylabel('Frequency')
+
+        # Add frequency labels on top of bars
+        for index, value in enumerate(value_counts):
+            axs[i].text(index, value, str(value), ha='center', va='bottom')
+
+    # Adjust layout and display plot in Streamlit
+    plt.tight_layout()
+    st.pyplot(fig)
