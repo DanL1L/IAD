@@ -146,9 +146,7 @@ if uploaded_file is not None:
         axs[i].set_xlabel(shape_names[column])
         axs[i].set_ylabel('Frequency')
 
-        # Add frequency labels on top of bars
-        for index, value in enumerate(value_counts):
-            axs[i].text(index, value, str(value), ha='center', va='bottom')
+
 
     # Adjust layout and display plot in Streamlit
     plt.tight_layout()
