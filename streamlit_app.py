@@ -91,7 +91,7 @@ if uploaded_file is not None:
     st.write('Number of edible mushrooms:', edible_count)
 
     #1 Diagram of edible and poisonous mushrooms
-    st.write('Diagram of edible and poisonous mushrooms:')
+    st.write('Diagram of edible and poisonous mushrooms')
 
     # List of column names
     columns = ['0_e', '0_p']
@@ -118,8 +118,18 @@ if uploaded_file is not None:
     
     #2 Diagram Shape
     
+st.write('Diagram of mushroom cap shapes:')
+
     # Define columns for cap-shape: bell=b, conical=c, convex=x, flat=f, knobbed=k, sunken=s
     columns = ['1_b', '1_c', '1_f', '1_k', '1_s', '1_x']
+    shape_names = {
+        '1_b': 'Bell',
+        '1_c': 'Conical',
+        '1_x': 'Convex',
+        '1_f': 'Flat',
+        '1_k': 'Knobbed',
+        '1_s': 'Sunken'
+    }
 
     # Create subplots
     fig, axs = plt.subplots(nrows=2, ncols=3, figsize=(15, 10))
@@ -129,8 +139,8 @@ if uploaded_file is not None:
     for i, column in enumerate(columns):
         value_counts = encoded_data[column].value_counts()
         value_counts.plot(kind='bar', ax=axs[i], color='skyblue', alpha=0.7)
-        axs[i].set_title(f'Distribution of {column}')
-        axs[i].set_xlabel(column)
+        axs[i].set_title(f'Distribution of {shape_names[column]}')
+        axs[i].set_xlabel(shape_names[column])
         axs[i].set_ylabel('Frequency')
 
         # Add frequency labels on top of bars
