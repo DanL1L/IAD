@@ -10,8 +10,8 @@ import matplotlib.pyplot as plt
 import streamlit as st
 
 # Load dataset
-st.title("Mushroom Classification")
-st.write("This app performs classification on the Mushroom dataset using different models.")
+st.title("Proiect Individual (Daniel Lupacescu / Marcela Stratan )")
+st.write("Clasificarea ciupercilor.")
 
 # Upload file
 uploaded_file = st.file_uploader("Choose a CSV file", type="data")
