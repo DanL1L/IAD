@@ -145,3 +145,34 @@ if uploaded_file is not None:
     # Adjust layout and display plot in Streamlit
     plt.tight_layout()
     st.pyplot(fig)
+
+    #3 Diagram Shape
+    # Diagram of mushroom Shape
+    st.write('Diagram of mushroom cap surfaces')
+
+    # Define columns for cap-surface: fibrous=f, grooves=g, scaly=y, smooth=s
+    columns = ['2_f', '2_g', '2_s', '2_y']
+    surface_names = {
+        '2_f': 'Fibrous',
+        '2_g': 'Grooves',
+        '2_s': 'Smooth',
+        '2_y': 'Scaly'
+    }
+
+    # Calculate value counts for cap surfaces
+    surface_counts = {surface_names[col]: encoded_data[col].sum() for col in columns}
+
+    # Create combined bar plot for cap surfaces
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.bar(surface_counts.keys(), surface_counts.values(), color=['yellow', 'brown', 'grey', 'pink'], alpha=0.7)
+    ax.set_title('Distribution of Mushroom Cap Surfaces')
+    ax.set_xlabel('Cap Surface')
+    ax.set_ylabel('Frequency')
+
+    # Add frequency labels on top of bars
+    for i, (surface, count) in enumerate(surface_counts.items()):
+        ax.text(i, count, str(count), ha='center', va='bottom')
+
+    # Adjust layout and display plot in Streamlit
+    plt.tight_layout()
+    st.pyplot(fig)
