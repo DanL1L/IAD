@@ -245,7 +245,7 @@ if uploaded_file is not None:
 
     
     # Diagram of mushroom odors
-    st.write('Diagram of mushroom odors')
+    st.write('Diagram of mushroom Odors')
     # List of column names
     columns = ['5_a', '5_l', '5_c', '5_y', '5_f', '5_m', '5_n', '5_p', '5_s']
     
@@ -277,29 +277,34 @@ if uploaded_file is not None:
         ax.text(odor, count, str(count), ha='center', va='bottom')
     
     # Display plot in Streamlit
-    st.write('Diagram of Mushroom Odor')
     st.pyplot(fig)
 
 
 
     # Diagram gill-attachment
-
-    # List of column names
-    columns = ['6_a', '6_f']
-
+    columns = ['6_a', '6_f', '6_d', '6_n']
+    
+    # Define gill attachment types
+    attachment_types = {
+        '6_a': 'Attached',
+        '6_f': 'Free',
+        '6_d': 'Descending',
+        '6_n': 'Notched'
+    }
+    
     # Calculate value counts for gill attachment types
     attachment_counts = {col: encoded_data[col].sum() for col in columns}
     
     # Create a bar plot for gill attachment types
     fig, ax = plt.subplots(figsize=(10, 5))
-    ax.bar(attachment_counts.keys(), attachment_counts.values(), color=['blue', 'orange'], alpha=0.7)
+    ax.bar([attachment_types[col] for col in columns], attachment_counts.values(), color=['blue', 'orange', 'green', 'red'], alpha=0.7)
     ax.set_title('Distribution of Mushroom Gill Attachment')
     ax.set_xlabel('Gill Attachment')
     ax.set_ylabel('Frequency')
     
     # Add frequency labels on top of bars
     for attachment, count in attachment_counts.items():
-        ax.text(attachment, count, str(count), ha='center', va='bottom')
+        ax.text([attachment_types[col] for col in columns].index(attachment_types[attachment]), count, str(count), ha='center', va='bottom')
     
     # Display plot in Streamlit
     st.write('Diagram of Mushroom Gill Attachment')
