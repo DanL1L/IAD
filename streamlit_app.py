@@ -117,7 +117,7 @@ if uploaded_file is not None:
     st.pyplot(fig)
     
     #2 Diagram Shape
-    st.write('Diagram of mushroom cap shapes:')
+    st.write('Diagram of mushroom cap shapes')
 
     # Define columns for cap-shape: bell=b, conical=c, convex=x, flat=f, knobbed=k, sunken=s
     columns = ['1_b', '1_c', '1_f', '1_k', '1_s', '1_x']
@@ -130,13 +130,17 @@ if uploaded_file is not None:
         '1_s': 'Sunken'
     }
 
+    # Filter columns to only show those with value 1
+    filtered_data = encoded_data[columns]
+
     # Create subplots
     fig, axs = plt.subplots(nrows=2, ncols=3, figsize=(15, 10))
     axs = axs.flatten()
 
     # Plot each column
     for i, column in enumerate(columns):
-        value_counts = encoded_data[column].value_counts()
+        value_counts = filtered_data[column].value_counts()
+        value_counts = value_counts[value_counts.index == 1]  # Filter to show only the count of 1s
         value_counts.plot(kind='bar', ax=axs[i], color='skyblue', alpha=0.7)
         axs[i].set_title(f'Distribution of {shape_names[column]}')
         axs[i].set_xlabel(shape_names[column])
