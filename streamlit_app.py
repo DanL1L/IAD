@@ -91,20 +91,18 @@ if uploaded_file is not None:
     st.write('Number of edible mushrooms:', edible_count)
 
     #1 Diagram of edible and poisonous mushrooms
-    st.write('Diagram of edible and poisonous mushrooms')
-
     # List of column names
     columns = ['0_e', '0_p']
 
     # Rename columns
-    column_names = {'0_e': 'Edible Mushrooms', '0_p': 'Poison Mushrooms'}
+    column_names = {'0_e': 'Edible Mushrooms', '0_p': 'Poisonous Mushrooms'}
 
     # Calculate value counts
     value_counts = [encoded_data['0_e'].sum(), encoded_data['0_p'].sum()]
 
     # Create bar plot
     fig, ax = plt.subplots(figsize=(10, 5))
-    ax.bar(column_names.values(), value_counts, color='skyblue', alpha=0.7)
+    ax.bar(column_names.values(), value_counts, color=['green', 'red'], alpha=0.7)
     ax.set_title('Distribution of Edible and Poisonous Mushrooms')
     ax.set_xlabel('Mushroom Type')
     ax.set_ylabel('Frequency')
