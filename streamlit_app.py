@@ -247,38 +247,38 @@ if uploaded_file is not None:
     # Diagram of mushroom odors
     st.write('Diagram of mushroom odors')
     # List of column names
-columns = ['5_a', '5_l', '5_c', '5_y', '5_f', '5_m', '5_n', '5_p', '5_s']
-
-# Calculate value counts for odor types
-odor_counts = {col: encoded_data[col].sum() for col in columns}
-
-# Define colors for each odor type
-odor_colors = {
-    '5_a': 'red',   # almond
-    '5_l': 'green',  # anise
-    '5_c': 'blue',   # creosote
-    '5_y': 'orange',  # fishy
-    '5_f': 'purple',  # foul
-    '5_m': 'yellow',  # musty
-    '5_n': 'pink',   # none
-    '5_p': 'brown',   # pungent
-    '5_s': 'gray'    # spicy
-}
-
-# Create a bar plot for odor types
-fig, ax = plt.subplots(figsize=(15, 5))
-ax.bar(odor_counts.keys(), odor_counts.values(), color=[odor_colors[col] for col in columns], alpha=0.7)
-ax.set_title('Distribution of Mushroom Odor')
-ax.set_xlabel('Odor Type')
-ax.set_ylabel('Frequency')
-
-# Add frequency labels on top of bars
-for odor, count in odor_counts.items():
-    ax.text(odor, count, str(count), ha='center', va='bottom')
-
-# Display plot in Streamlit
-st.write('Diagram of Mushroom Odor')
-st.pyplot(fig)
+    columns = ['5_a', '5_l', '5_c', '5_y', '5_f', '5_m', '5_n', '5_p', '5_s']
+    
+    # Calculate value counts for odor types
+    odor_counts = {col: encoded_data[col].sum() for col in columns}
+    
+    # Define colors for each odor type
+    odor_colors = {
+        '5_a': 'red',   # almond
+        '5_l': 'green',  # anise
+        '5_c': 'blue',   # creosote
+        '5_y': 'orange',  # fishy
+        '5_f': 'purple',  # foul
+        '5_m': 'yellow',  # musty
+        '5_n': 'pink',   # none
+        '5_p': 'brown',   # pungent
+        '5_s': 'gray'    # spicy
+    }
+    
+    # Create a bar plot for odor types
+    fig, ax = plt.subplots(figsize=(15, 5))
+    ax.bar(odor_counts.keys(), odor_counts.values(), color=[odor_colors[col] for col in columns], alpha=0.7)
+    ax.set_title('Distribution of Mushroom Odor')
+    ax.set_xlabel('Odor Type')
+    ax.set_ylabel('Frequency')
+    
+    # Add frequency labels on top of bars
+    for odor, count in odor_counts.items():
+        ax.text(odor, count, str(count), ha='center', va='bottom')
+    
+    # Display plot in Streamlit
+    st.write('Diagram of Mushroom Odor')
+    st.pyplot(fig)
 
 
 
