@@ -92,7 +92,7 @@ if uploaded_file is not None:
 
     # Plot distribution
     st.write("## Distribution of Classes")
-    columns = ['0_e', '0_p']
+    column_names = {'0_e': 'Edible Mushrooms', '0_p': 'Poison Mushrooms'}
     fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(15, 5))
     for i, column in enumerate(columns):
         value_counts = encoded_data[column].value_counts()
