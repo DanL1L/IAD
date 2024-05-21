@@ -246,7 +246,7 @@ if uploaded_file is not None:
     
     # Diagram of mushroom odors
     # Define legend text
-legend_text = "Odor Types:\n" \
+    legend_text = "Odor Types:\n" \
               "almond=a, anise=l, creosote=c, fishy=y, foul=f, musty=m, none=n, pungent=p, spicy=s"
 
     # List of column names
