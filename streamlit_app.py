@@ -242,3 +242,38 @@ if uploaded_file is not None:
     # Adjust layout and display plot in Streamlit
     plt.tight_layout()
     st.pyplot(fig)
+    # Diagram of mushroom odors
+    st.write('Diagram of mushroom odors')
+
+    # Define columns for odor: almond=a, anise=l, creosote=c, fishy=y, foul=f, musty=m, none=n, pungent=p, spicy=s
+    columns = ['5_a', '5_l', '5_c', '5_y', '5_f', '5_m', '5_n', '5_p', '5_s']
+    odor_names = {
+        '5_a': 'Almond',
+        '5_l': 'Anise',
+        '5_c': 'Creosote',
+        '5_y': 'Fishy',
+        '5_f': 'Foul',
+        '5_m': 'Musty',
+        '5_n': 'None',
+        '5_p': 'Pungent',
+        '5_s': 'Spicy'
+    }
+
+    # Calculate value counts for odors
+    odor_counts = {odor_names[col]: encoded_data[col].sum() for col in columns}
+
+    # Create combined bar plot for odors
+    fig, ax = plt.subplots(figsize=(15, 5))
+    ax.bar(odor_counts.keys(), odor_counts.values(), color=['almond', 'anise', 'creosote', 'fishy', 'foul', 'musty', 'none', 'pungent', 'spicy'], alpha=0.7)
+    ax.set_title('Distribution of Mushroom Odors')
+    ax.set_xlabel('Odor')
+    ax.set_ylabel('Frequency')
+
+    # Add frequency labels on top of bars
+    for i, (odor, count) in enumerate(odor_counts.items()):
+        ax.text(i, count, str(count), ha='center', va='bottom')
+
+    # Adjust layout and display plot in Streamlit
+    plt.tight_layout()
+    st.pyplot(fig)
+    
