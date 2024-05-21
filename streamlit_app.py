@@ -90,31 +90,33 @@ if uploaded_file is not None:
     edible_count = encoded_data['0_e'].sum()
     st.write('Number of edible mushrooms:', edible_count)
 
-     # List of column names
-    columns = ['0_e', '0_p']
+    #1 Diagram of edible and poisonous mushrooms
+    st.write('Diagram of edible and poisonous mushrooms:')
 
-    # Create subplots
-    fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(15, 5))
+    # List of column names
+    columns = ['0_e', '0_p']
 
     # Rename columns
     column_names = {'0_e': 'Edible Mushrooms', '0_p': 'Poison Mushrooms'}
 
-    # Plot each column
-    for i, column in enumerate(columns):
-        value_counts = encoded_data[column].value_counts()
-        value_counts.plot(kind='bar', ax=axs[i], color='skyblue', alpha=0.7)
-        axs[i].set_title(f'Distribution of {column_names[column]}')
-        axs[i].set_xlabel(column_names[column])
-        axs[i].set_ylabel('Frequency')
+    # Calculate value counts
+    value_counts = [encoded_data['0_e'].sum(), encoded_data['0_p'].sum()]
 
-        # Add frequency labels on top of bars
-        for index, value in enumerate(value_counts):
-            axs[i].text(index, value, str(value), ha='center', va='bottom')
+    # Create bar plot
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.bar(column_names.values(), value_counts, color='skyblue', alpha=0.7)
+    ax.set_title('Distribution of Edible and Poisonous Mushrooms')
+    ax.set_xlabel('Mushroom Type')
+    ax.set_ylabel('Frequency')
 
-    # Adjust layout and display plot in Streamlit
-    plt.tight_layout()
+    # Add frequency labels on top of bars
+    for i, value in enumerate(value_counts):
+        ax.text(i, value, str(value), ha='center', va='bottom')
+
+    # Display plot in Streamlit
     st.pyplot(fig)
-
+    
+    #2 Diagram Shape
     
     # Define columns for cap-shape: bell=b, conical=c, convex=x, flat=f, knobbed=k, sunken=s
     columns = ['1_b', '1_c', '1_f', '1_k', '1_s', '1_x']
