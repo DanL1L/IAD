@@ -176,3 +176,39 @@ if uploaded_file is not None:
     # Adjust layout and display plot in Streamlit
     plt.tight_layout()
     st.pyplot(fig)
+    #4 Diagram cap colors
+    # Diagram of mushroom cap colors
+    st.write('Diagram of mushroom cap colors')
+
+    # Define columns for cap-color: brown=n, buff=b, cinnamon=c, gray=g, green=r, pink=p, purple=u, red=e, white=w, yellow=y
+    columns = ['3_b', '3_c', '3_e', '3_g', '3_n', '3_p', '3_r', '3_u', '3_w', '3_y']
+    color_names = {
+        '3_b': 'Buff',
+        '3_c': 'Cinnamon',
+        '3_e': 'Red',
+        '3_g': 'Gray',
+        '3_n': 'Brown',
+        '3_p': 'Pink',
+        '3_r': 'Green',
+        '3_u': 'Purple',
+        '3_w': 'White',
+        '3_y': 'Yellow'
+    }
+
+    # Calculate value counts for cap colors
+    color_counts = {color_names[col]: encoded_data[col].sum() for col in columns}
+
+    # Create combined bar plot for cap colors
+    fig, ax = plt.subplots(figsize=(15, 5))
+    ax.bar(color_counts.keys(), color_counts.values(), color=['brown', 'burlywood', 'chocolate', 'grey', 'darkgreen', 'pink', 'purple', 'red', 'white', 'yellow'], alpha=0.7)
+    ax.set_title('Distribution of Mushroom Cap Colors')
+    ax.set_xlabel('Cap Color')
+    ax.set_ylabel('Frequency')
+
+    # Add frequency labels on top of bars
+    for i, (color, count) in enumerate(color_counts.items()):
+        ax.text(i, count, str(count), ha='center', va='bottom')
+
+    # Adjust layout and display plot in Streamlit
+    plt.tight_layout()
+    st.pyplot(fig)
