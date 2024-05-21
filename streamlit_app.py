@@ -245,7 +245,6 @@ if uploaded_file is not None:
 
     
     # Diagram of mushroom odors
-    # Diagram of mushroom odors
     st.write('Diagram of mushroom odors')
     
     # Define legend text
@@ -286,7 +285,6 @@ if uploaded_file is not None:
     ax.legend(bars, [legend_text], loc='upper left')
     
     # Display plot in Streamlit
-    st.write('Diagram of Mushroom Odor')
     st.pyplot(fig)
 
     # Diagram gill-attachment
