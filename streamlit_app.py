@@ -289,4 +289,37 @@ if uploaded_file is not None:
 
     # Diagram gill-attachment
 
+    # Diagram of mushroom habitat
+    st.write('Diagram of mushroom habitat')
+    
+    # List of column names
+    columns = ['22_g', '22_l', '22_m', '22_p', '22_u', '22_w', '22_d']
+    habitat_names = {
+        '22_g': 'Grasses',
+        '22_l': 'Leaves',
+        '22_m': 'Meadows',
+        '22_p': 'Paths',
+        '22_u': 'Urban',
+        '22_w': 'Waste',
+        '22_d': 'Woods'
+    }
+    
+    # Calculate value counts for habitat types
+    habitat_counts = {habitat_names[col]: encoded_data[col].sum() for col in columns}
+    
+    # Create combined bar plot for habitat
+    fig, ax = plt.subplots(figsize=(15, 5))
+    ax.bar(habitat_counts.keys(), habitat_counts.values(), color='skyblue', alpha=0.7)
+    ax.set_title('Distribution of Mushroom Habitat')
+    ax.set_xlabel('Habitat Type')
+    ax.set_ylabel('Frequency')
+    
+    # Add frequency labels on top of bars
+    for habitat, count in habitat_counts.items():
+        ax.text(habitat, count, str(count), ha='center', va='bottom')
+    
+    # Adjust layout and display plot in Streamlit
+    plt.tight_layout()
+    st.pyplot(fig)
+
     
