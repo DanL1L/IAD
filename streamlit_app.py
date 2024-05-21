@@ -280,9 +280,10 @@ for odor, count in odor_counts.items():
 st.write('Diagram of Mushroom Odor')
 st.pyplot(fig)
 
-    
+
+
     # Diagram gill-attachment
-    st.write('Diagram of mushroom odors')
+
     # List of column names
     columns = ['6_a', '6_f']
 
