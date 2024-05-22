@@ -286,43 +286,7 @@ if uploaded_file is not None:
     
     # Display plot in Streamlit
     st.pyplot(fig)
-
-    # Diagram gill-attachment
-
-    # Diagram of mushroom habitat
-    st.write('Diagram of mushroom habitat')
-    
-    # List of column names
-    columns = ['22_g', '22_l', '22_m', '22_p', '22_u', '22_w', '22_d']
-    habitat_names = {
-        '22_g': 'Grasses',
-        '22_l': 'Leaves',
-        '22_m': 'Meadows',
-        '22_p': 'Paths',
-        '22_u': 'Urban',
-        '22_w': 'Waste',
-        '22_d': 'Woods'
-    }
-    
-    # Calculate value counts for habitat types
-    habitat_counts = {habitat_names[col]: encoded_data[col].sum() for col in columns}
-    
-    # Create combined bar plot for habitat
-    fig, ax = plt.subplots(figsize=(15, 5))
-    ax.bar(habitat_counts.keys(), habitat_counts.values(), color='skyblue', alpha=0.7)
-    ax.set_title('Distribution of Mushroom Habitat')
-    ax.set_xlabel('Habitat Type')
-    ax.set_ylabel('Frequency')
-    
-    # Add frequency labels on top of bars
-    for habitat, count in habitat_counts.items():
-        ax.text(habitat, count, str(count), ha='center', va='bottom')
-    
-    # Adjust layout and display plot in Streamlit
-    plt.tight_layout()
-    st.pyplot(fig)
-
-    # Define the mappings for each feature
+    # Define the mappings for each feature and their colors
     features = {
         '6. gill-attachment': {'6_a': 'Attached', '6_d': 'Descending', '6_f': 'Free', '6_n': 'Notched'},
         '7. gill-spacing': {'7_c': 'Close', '7_w': 'Crowded', '7_d': 'Distant'},
@@ -352,8 +316,38 @@ if uploaded_file is not None:
                         '22_w': 'Waste', '22_d': 'Woods'}
     }
     
+    # Define colors for each feature
+    feature_colors = {
+        '6. gill-attachment': {'6_a': 'blue', '6_d': 'orange', '6_f': 'green', '6_n': 'red'},
+        '7. gill-spacing': {'7_c': 'blue', '7_w': 'orange', '7_d': 'green'},
+        '8. gill-size': {'8_b': 'blue', '8_n': 'orange'},
+        '9. gill-color': {'9_k': 'black', '9_n': 'brown', '9_b': 'lightgray', '9_h': 'chocolate', '9_g': 'gray',
+                          '9_r': 'green', '9_o': 'orange', '9_p': 'pink', '9_u': 'purple', '9_e': 'red',
+                          '9_w': 'white', '9_y': 'yellow'},
+        '10. stalk-shape': {'10_e': 'blue', '10_t': 'orange'},
+        '11. stalk-root': {'11_b': 'blue', '11_c': 'orange', '11_u': 'green', '11_e': 'red', '11_z': 'purple',
+                           '11_r': 'brown', '11_?': 'gray'},
+        '12. stalk-surface-above-ring': {'12_f': 'blue', '12_y': 'orange', '12_k': 'green', '12_s': 'red'},
+        '13. stalk-surface-below-ring': {'13_f': 'blue', '13_y': 'orange', '13_k': 'green', '13_s': 'red'},
+        '14. stalk-color-above-ring': {'14_n': 'brown', '14_b': 'lightgray', '14_c': 'orange', '14_g': 'gray', '14_o': 'green',
+                                       '14_p': 'pink', '14_e': 'red', '14_w': 'white', '14_y': 'yellow'},
+        '15. stalk-color-below-ring': {'15_n': 'brown', '15_b': 'lightgray', '15_c': 'orange', '15_g': 'gray', '15_o': 'green',
+                                       '15_p': 'pink', '15_e': 'red', '15_w': 'white', '15_y': 'yellow'},
+        '16. veil-type': {'16_p': 'blue', '16_u': 'orange'},
+        '17. veil-color': {'17_n': 'brown', '17_o': 'orange', '17_w': 'white', '17_y': 'yellow'},
+        '18. ring-number': {'18_n': 'blue', '18_o': 'orange', '18_t': 'green'},
+        '19. ring-type': {'19_c': 'blue', '19_e': 'orange', '19_f': 'green', '19_l': 'red',
+                          '19_n': 'purple', '19_p': 'brown', '19_s': 'pink', '19_z': 'gray'},
+        '20. spore-print-color': {'20_k': 'black', '20_n': 'brown', '20_b': 'lightgray', '20_h': 'chocolate', '20_r': 'green',
+                                  '20_o': 'orange', '20_u': 'purple', '20_w': 'white', '20_y': 'yellow'},
+        '21. population': {'21_a': 'blue', '21_c': 'orange', '21_n': 'green', '21_s': 'red',
+                           '21_v': 'purple', '21_y': 'pink'},
+        '22. habitat': {'22_g': 'blue', '22_l': 'orange', '22_m': 'green', '22_p': 'red',
+                        '22_u': 'purple', '22_w': 'brown', '22_d': 'gray'}
+    }
+    
     # Function to create bar plots for each feature
-    def create_bar_plot(feature_name, feature_dict):
+    def create_bar_plot(feature_name, feature_dict, color_dict):
         # Filter out columns that do not exist in the DataFrame
         existing_columns = {col: feature_dict[col] for col in feature_dict.keys() if col in encoded_data.columns}
         if not existing_columns:
@@ -362,7 +356,7 @@ if uploaded_file is not None:
         feature_counts = {existing_columns[col]: encoded_data[col].sum() for col in existing_columns.keys()}
         
         fig, ax = plt.subplots(figsize=(15, 5))
-        ax.bar(feature_counts.keys(), feature_counts.values(), color='skyblue', alpha=0.7)
+        bars = ax.bar(feature_counts.keys(), feature_counts.values(), color=[color_dict[col] for col in existing_columns.keys()], alpha=0.7)
         ax.set_title(f'Distribution of Mushroom {feature_name}')
         ax.set_xlabel(feature_name.split('.')[1].strip())
         ax.set_ylabel('Frequency')
@@ -376,9 +370,9 @@ if uploaded_file is not None:
     # Iterate through the features and create plots
     for feature_name, feature_dict in features.items():
         st.write(f'Diagram of Mushroom {feature_name.split(".")[1].strip()}')
-        fig = create_bar_plot(feature_name, feature_dict)
+        fig = create_bar_plot(feature_name, feature_dict, feature_colors[feature_name])
         if fig:
             st.pyplot(fig)
         else:
             st.write(f"No data available for {feature_name}")
-        
+            
