@@ -322,7 +322,7 @@ if uploaded_file is not None:
     plt.tight_layout()
     st.pyplot(fig)
 
-    # Define parts
+    # Define the mappings for each feature
     features = {
         '6. gill-attachment': {'6_a': 'Attached', '6_d': 'Descending', '6_f': 'Free', '6_n': 'Notched'},
         '7. gill-spacing': {'7_c': 'Close', '7_w': 'Crowded', '7_d': 'Distant'},
@@ -354,7 +354,12 @@ if uploaded_file is not None:
     
     # Function to create bar plots for each feature
     def create_bar_plot(feature_name, feature_dict):
-        feature_counts = {feature_dict[col]: encoded_data[col].sum() for col in feature_dict.keys()}
+        # Filter out columns that do not exist in the DataFrame
+        existing_columns = {col: feature_dict[col] for col in feature_dict.keys() if col in encoded_data.columns}
+        if not existing_columns:
+            return None
+        
+        feature_counts = {existing_columns[col]: encoded_data[col].sum() for col in existing_columns.keys()}
         
         fig, ax = plt.subplots(figsize=(15, 5))
         ax.bar(feature_counts.keys(), feature_counts.values(), color='skyblue', alpha=0.7)
@@ -372,5 +377,8 @@ if uploaded_file is not None:
     for feature_name, feature_dict in features.items():
         st.write(f'Diagram of Mushroom {feature_name.split(".")[1].strip()}')
         fig = create_bar_plot(feature_name, feature_dict)
-        st.pyplot(fig)
-    
+        if fig:
+            st.pyplot(fig)
+        else:
+            st.write(f"No data available for {feature_name}")
+        
