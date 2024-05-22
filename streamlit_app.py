@@ -322,4 +322,55 @@ if uploaded_file is not None:
     plt.tight_layout()
     st.pyplot(fig)
 
+    # Define parts
+    features = {
+        '6. gill-attachment': {'6_a': 'Attached', '6_d': 'Descending', '6_f': 'Free', '6_n': 'Notched'},
+        '7. gill-spacing': {'7_c': 'Close', '7_w': 'Crowded', '7_d': 'Distant'},
+        '8. gill-size': {'8_b': 'Broad', '8_n': 'Narrow'},
+        '9. gill-color': {'9_k': 'Black', '9_n': 'Brown', '9_b': 'Buff', '9_h': 'Chocolate', '9_g': 'Gray',
+                          '9_r': 'Green', '9_o': 'Orange', '9_p': 'Pink', '9_u': 'Purple', '9_e': 'Red',
+                          '9_w': 'White', '9_y': 'Yellow'},
+        '10. stalk-shape': {'10_e': 'Enlarging', '10_t': 'Tapering'},
+        '11. stalk-root': {'11_b': 'Bulbous', '11_c': 'Club', '11_u': 'Cup', '11_e': 'Equal', '11_z': 'Rhizomorphs',
+                           '11_r': 'Rooted', '11_?': 'Missing'},
+        '12. stalk-surface-above-ring': {'12_f': 'Fibrous', '12_y': 'Scaly', '12_k': 'Silky', '12_s': 'Smooth'},
+        '13. stalk-surface-below-ring': {'13_f': 'Fibrous', '13_y': 'Scaly', '13_k': 'Silky', '13_s': 'Smooth'},
+        '14. stalk-color-above-ring': {'14_n': 'Brown', '14_b': 'Buff', '14_c': 'Cinnamon', '14_g': 'Gray', '14_o': 'Orange',
+                                       '14_p': 'Pink', '14_e': 'Red', '14_w': 'White', '14_y': 'Yellow'},
+        '15. stalk-color-below-ring': {'15_n': 'Brown', '15_b': 'Buff', '15_c': 'Cinnamon', '15_g': 'Gray', '15_o': 'Orange',
+                                       '15_p': 'Pink', '15_e': 'Red', '15_w': 'White', '15_y': 'Yellow'},
+        '16. veil-type': {'16_p': 'Partial', '16_u': 'Universal'},
+        '17. veil-color': {'17_n': 'Brown', '17_o': 'Orange', '17_w': 'White', '17_y': 'Yellow'},
+        '18. ring-number': {'18_n': 'None', '18_o': 'One', '18_t': 'Two'},
+        '19. ring-type': {'19_c': 'Cobwebby', '19_e': 'Evanescent', '19_f': 'Flaring', '19_l': 'Large',
+                          '19_n': 'None', '19_p': 'Pendant', '19_s': 'Sheathing', '19_z': 'Zone'},
+        '20. spore-print-color': {'20_k': 'Black', '20_n': 'Brown', '20_b': 'Buff', '20_h': 'Chocolate', '20_r': 'Green',
+                                  '20_o': 'Orange', '20_u': 'Purple', '20_w': 'White', '20_y': 'Yellow'},
+        '21. population': {'21_a': 'Abundant', '21_c': 'Clustered', '21_n': 'Numerous', '21_s': 'Scattered',
+                           '21_v': 'Several', '21_y': 'Solitary'},
+        '22. habitat': {'22_g': 'Grasses', '22_l': 'Leaves', '22_m': 'Meadows', '22_p': 'Paths', '22_u': 'Urban',
+                        '22_w': 'Waste', '22_d': 'Woods'}
+    }
+    
+    # Function to create bar plots for each feature
+    def create_bar_plot(feature_name, feature_dict):
+        feature_counts = {feature_dict[col]: encoded_data[col].sum() for col in feature_dict.keys()}
+        
+        fig, ax = plt.subplots(figsize=(15, 5))
+        ax.bar(feature_counts.keys(), feature_counts.values(), color='skyblue', alpha=0.7)
+        ax.set_title(f'Distribution of Mushroom {feature_name}')
+        ax.set_xlabel(feature_name.split('.')[1].strip())
+        ax.set_ylabel('Frequency')
+        
+        for i, (feature, count) in enumerate(feature_counts.items()):
+            ax.text(i, count, str(count), ha='center', va='bottom')
+        
+        plt.tight_layout()
+        return fig
+    
+    # Iterate through the features and create plots
+    for feature_name, feature_dict in features.items():
+        st.write(f'Diagram of Mushroom {feature_name.split(".")[1].strip()}')
+        fig = create_bar_plot(feature_name, feature_dict)
+        st.pyplot(fig)
     
