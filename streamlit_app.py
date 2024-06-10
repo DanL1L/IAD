@@ -15,7 +15,7 @@ st.title("Clasificarea ciupercilor")
 st.write("Proiect Individual (Daniel Lupacescu / Marcela Stratan ).")
 
 # Upload file
-uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
+uploaded_file = st.file_uploader("Choose file", type="data")
 if uploaded_file is not None:
     data = pd.read_csv(uploaded_file, header=None)
     
