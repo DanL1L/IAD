@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import GaussianNB
@@ -11,10 +12,10 @@ import streamlit as st
 
 # Load dataset
 st.title("Clasificarea ciupercilor")
-st.write("Proiect Individual (Daniel Lupacescu / Marcela Stratan ) .")
+st.write("Proiect Individual (Daniel Lupacescu / Marcela Stratan ).")
 
 # Upload file
-uploaded_file = st.file_uploader("Choose a CSV file", type="data")
+uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
 if uploaded_file is not None:
     data = pd.read_csv(uploaded_file, header=None)
     
@@ -90,34 +91,24 @@ if uploaded_file is not None:
     edible_count = encoded_data['0_e'].sum()
     st.write('Number of edible mushrooms:', edible_count)
 
-    #1 Diagram of edible and poisonous mushrooms
-    # List of column names
+    # Diagram of edible and poisonous mushrooms
     columns = ['0_e', '0_p']
-
-    # Rename columns
     column_names = {'0_e': 'Edible Mushrooms', '0_p': 'Poisonous Mushrooms'}
-
-    # Calculate value counts
     value_counts = [encoded_data['0_e'].sum(), encoded_data['0_p'].sum()]
 
-    # Create bar plot
     fig, ax = plt.subplots(figsize=(10, 5))
     ax.bar(column_names.values(), value_counts, color=['green', 'red'], alpha=0.7)
     ax.set_title('Distribution of Edible and Poisonous Mushrooms')
     ax.set_xlabel('Mushroom Type')
     ax.set_ylabel('Frequency')
 
-    # Add frequency labels on top of bars
     for i, value in enumerate(value_counts):
         ax.text(i, value, str(value), ha='center', va='bottom')
 
-    # Display plot in Streamlit
     st.pyplot(fig)
     
-    #2 Diagram Shape
+    # Diagram Shape
     st.write('Diagram of mushroom cap shapes')
-
-    # Define columns for cap-shape: bell=b, conical=c, convex=x, flat=f, knobbed=k, sunken=s
     columns = ['1_b', '1_c', '1_f', '1_k', '1_s', '1_x']
     shape_names = {
         '1_b': 'Bell',
@@ -128,21 +119,17 @@ if uploaded_file is not None:
         '1_x': 'Convex'
     }
 
-    # Calculate value counts for each shape
     shape_counts = {shape_names[col]: encoded_data[col].sum() for col in columns}
 
-    # Create bar plot for mushroom cap shapes
     fig, ax = plt.subplots(figsize=(10, 5))
     ax.bar(shape_counts.keys(), shape_counts.values(), color='blue', alpha=0.7)
     ax.set_title('Distribution of Mushroom Cap Shapes')
     ax.set_xlabel('Cap Shape')
     ax.set_ylabel('Frequency')
 
-    # Add frequency labels on top of bars
     for i, value in enumerate(shape_counts.values()):
         ax.text(i, value, str(value), ha='center', va='bottom')
 
-    # Display plot in Streamlit
     st.pyplot(fig)
 
     # Function to plot learning curves
@@ -183,4 +170,3 @@ if uploaded_file is not None:
     st.write("### Naive Bayes Learning Curve")
     plot_learning_curve(GaussianNB(), "Naive Bayes Learning Curve", X, y, cv=5)
     st.pyplot(plt)
-
